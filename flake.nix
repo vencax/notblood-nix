@@ -14,6 +14,7 @@
     {
       overlays.default = final: prev: {
         notblood = final.callPackage ./package.nix { };
+        netduke32 = final.callPackage ./netduke32.nix { };
       };
 
       packages = forAllSystems (system:
@@ -21,15 +22,21 @@
           pkgs = pkgsFor system;
         in {
           notblood = pkgs.callPackage ./package.nix { };
+          netduke32 = pkgs.callPackage ./netduke32.nix { };
           default = self.packages.${system}.notblood;
         }
       );
 
       apps = forAllSystems (system: {
-        default = {
+        notblood = {
           type = "app";
-          program = "${self.packages.${system}.default}/bin/notblood";
+          program = "${self.packages.${system}.notblood}/bin/notblood";
         };
+        netduke32 = {
+          type = "app";
+          program = "${self.packages.${system}.netduke32}/bin/netduke32";
+        };
+        default = self.apps.${system}.notblood;
       });
 
       devShells = forAllSystems (system:

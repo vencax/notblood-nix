@@ -1,13 +1,15 @@
 # notblood-nix
 
-Nix flake packaging for [NotBlood](https://github.com/clipmove/NotBlood), an enhanced gameplay mod and source port of **Blood** based on NBlood and EDuke32 engine technology.
+Nix flake packaging for:
+- [NotBlood](https://github.com/clipmove/NotBlood): Enhanced gameplay mod and source port of **Blood** based on NBlood and EDuke32 engine technology.
+- [NetDuke32](https://voidpoint.io/StrikerTheHedgefox/eduke32-csrefactor): Advanced **Duke Nukem 3D** source port with overhauled client/server multiplayer netcode based on EDuke32.
 
 ## Features
 - Native Linux build with SDL2 and Wayland support.
-- Pre-packaged mod resources (`notblood.pk3`).
+- Pre-packaged mod resources (`notblood.pk3` for NotBlood, `eduke32.dat` for NetDuke32).
 - Desktop launcher integration and application icons.
 - Includes engine tools (`kextract`, `kgroup`, `bsuite`, `arttool`, etc.).
-- Includes `notblood-download-shareware` helper to quickly set up game assets.
+- Includes download helpers: `notblood-download-shareware` and `netduke32-download-shareware` to quickly set up game assets.
 
 ---
 
@@ -16,7 +18,11 @@ Nix flake packaging for [NotBlood](https://github.com/clipmove/NotBlood), an enh
 Run directly with Nix Flakes:
 
 ```bash
-nix run github:vencax/notblood-nix
+# Run NotBlood
+nix run github:vencax/notblood-nix#notblood
+
+# Run NetDuke32
+nix run github:vencax/notblood-nix#netduke32
 ```
 
 ---
@@ -75,3 +81,20 @@ Copy the following files into `~/.config/notblood/`:
 - `TILES000.ART` ... `TILES017.ART`
 - `VOXEL.DAT`
 - Optional: `movie/` directory for cutscenes, `*.OGG` / `*.FLAC` for CD audio.
+
+---
+
+## Duke Nukem 3D Assets (NetDuke32)
+
+NetDuke32 requires the original Duke Nukem 3D data files (`DUKE3D.GRP`, `*.CON`).
+
+### Option 1: Automatic Download (Helper script)
+Run:
+```bash
+netduke32-download-shareware
+```
+This automatically downloads and extracts the official Duke Nukem 3D Shareware data into `~/.config/netduke32/`.
+
+### Option 2: Full Game (Atomic Edition / Steam / GOG)
+Copy `DUKE3D.GRP` (and optionally `GAME.CON`, `DEFS.CON`, `USER.CON`) into `~/.config/netduke32/`.
+
